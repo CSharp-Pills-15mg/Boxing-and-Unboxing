@@ -1,5 +1,4 @@
-﻿using BenchmarkDotNet.Reports;
-using BenchmarkDotNet.Running;
+﻿using BenchmarkDotNet.Running;
 using BoxingAndUnboxing.Benchmarks;
 
 namespace BoxingAndUnboxing.Runner
@@ -8,10 +7,10 @@ namespace BoxingAndUnboxing.Runner
     {
         private static void Main(string[] args)
         {
-            //Assembly assembly = Assembly.GetEntryAssembly();
+            //Assembly assembly = typeof(BoxingUnboxingBenchmarks).Assembly;
             //BenchmarkSwitcher.FromAssembly(assembly).Run(args);
 
-            Summary summary1 = BenchmarkRunner.Run<BoxingUnboxingBenchmarks>();
+            BenchmarkRunner.Run<BoxingUnboxingBenchmarks>();
         }
     }
 }

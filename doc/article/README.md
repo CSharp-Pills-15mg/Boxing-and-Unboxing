@@ -18,7 +18,7 @@ Everybody knows that the boxing and unboxing are very time consuming. But, is it
 
 ## Setup
 
-### Prerequisite
+### Prerequisites
 
 As a prerequisite:
 
@@ -43,7 +43,17 @@ For measuring the execution time we will use BenchmarkDotNet:
 
 - https://github.com/dotnet/BenchmarkDotNet
 
-Let's write three benchmark tests:
+We will create the `BoxingUnboxingBenchmarks` class:
+
+```csharp
+[SimpleJob(RuntimeMoniker.Net50, targetCount: 100)]
+public class BoxingUnboxingBenchmarks
+{
+    ...
+}
+```
+
+And three benchmark tests inside the benchmarks class:
 
 - **Simple Copy (Control)** - A control test that will measure the time of copying the integers from `List<int>` into `List<int>`. No boxing.
 
@@ -99,26 +109,39 @@ Let's write three benchmark tests:
   }
   ```
 
+## Running the Tests
+
+Create a console application and run the benchmarks class:
+
+```csharp
+private static void Main(string[] args)
+{
+    BenchmarkRunner.Run<BoxingUnboxingBenchmarks>();
+}
+```
+
+Run the console and enjoy the show for a few minutes...
+
 ## Results
 
-Items count: 10.000.000
-
 ``` ini
+
 BenchmarkDotNet=v0.13.1, OS=Windows 10.0.19043.1288 (21H1/May2021Update)
 Intel Core i7-8565U CPU 1.80GHz (Whiskey Lake), 1 CPU, 8 logical and 4 physical cores
 .NET SDK=5.0.402
   [Host]     : .NET 5.0.11 (5.0.1121.47308), X64 RyuJIT
-  Job-VEDUTZ : .NET 5.0.11 (5.0.1121.47308), X64 RyuJIT
+  Job-BDJHOG : .NET 5.0.11 (5.0.1121.47308), X64 RyuJIT
 
-Runtime=.NET 5.0  IterationCount=10
+Runtime=.NET 5.0  IterationCount=100  
+
 ```
-| Method      |      Mean |     Error |    StdDev |
-| ----------- | --------: | --------: | --------: |
-| Simple Copy |  70.71 ms | 13.836 ms |  9.152 ms |
-| Boxing      | 644.75 ms | 98.001 ms | 64.822 ms |
-| Unboxing    |  75.00 ms |  4.097 ms |  2.438 ms |
+|        Method |      Mean |     Error |    StdDev |    Median |
+|-------------- |----------:|----------:|----------:|----------:|
+| &#39;Simple Copy&#39; |  58.89 ms |  1.391 ms |  3.855 ms |  58.25 ms |
+|        Boxing | 603.21 ms | 13.721 ms | 38.924 ms | 588.46 ms |
+|      Unboxing |  73.67 ms |  0.990 ms |  2.695 ms |  73.34 ms |
 
 ## Conclusion
 
-- Boxing is very time consuming.
+- Boxing is very time consuming. An order of magnitude slower than a simple copy.
 - Unboxing, though, is much faster than boxing, just a little bit slower than a simple copy.

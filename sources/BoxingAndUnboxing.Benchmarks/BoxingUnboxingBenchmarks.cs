@@ -5,10 +5,7 @@ using BenchmarkDotNet.Jobs;
 
 namespace BoxingAndUnboxing.Benchmarks
 {
-    //[SimpleJob(RuntimeMoniker.Net50)]
-    //[SimpleJob(RuntimeMoniker.Net48)]
-    //[RPlotExporter]
-    [SimpleJob(RuntimeMoniker.Net50)]
+    [SimpleJob(RuntimeMoniker.Net50, targetCount: 100)]
     public class BoxingUnboxingBenchmarks
     {
         private IReadOnlyList<int> initialUnboxedNumbers;
