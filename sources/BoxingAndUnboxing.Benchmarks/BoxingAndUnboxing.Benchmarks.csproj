@@ -2,6 +2,8 @@
 
     <PropertyGroup>
         <TargetFramework>net5.0</TargetFramework>
+        <RootNamespace>DustInTheWind.BoxingAndUnboxing.Benchmarks</RootNamespace>
+        <AssemblyName>BoxingAndUnboxing.Benchmarks</AssemblyName>
     </PropertyGroup>
 
     <ItemGroup>
